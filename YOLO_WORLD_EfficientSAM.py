@@ -90,10 +90,24 @@ class ESAM_ModelLoader_Zho:
     CATEGORY = "🔎YOLOWORLD_ESAM"
   
     def load_esam_model(self, device):
+        from download import download_file
+
         if device == "CUDA":
-            model_path = os.path.join(current_directory, "efficient_sam_s_gpu.jit")
+            model_path = download_file({
+              "huggingface": {
+                  "filePath":"efficient_sam_s_gpu.jit",
+                  "repoId":"camenduru/YoloWorld-EfficientSAM"
+              }
+            })
+            #os.path.join(current_directory, "efficient_sam_s_gpu.jit")
         else:
-            model_path = os.path.join(current_directory, "efficient_sam_s_cpu.jit")
+            model_path = download_file({
+              "huggingface": {
+                  "filePath":"efficient_sam_s_cpu.jit",
+                  "repoId":"camenduru/YoloWorld-EfficientSAM"
+              }
+            })
+            #os.path.join(current_directory, "efficient_sam_s_cpu.jit")
             
         EFFICIENT_SAM_MODEL = torch.jit.load(model_path)
 
